@@ -13,3 +13,4 @@ Tests/
 Archive/
 Examples/
 Solution/
+__pycache__/
