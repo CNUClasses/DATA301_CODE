@@ -5,6 +5,7 @@ import numpy as np
 #to generate people names
 import names
 
+PROCESSED_DATA = "./data.feather"
 
 def generate_tshirt_order(numb_small=100, numb_medium=100, numb_large=100):
     '''
@@ -31,9 +32,9 @@ def generate_tshirt_order(numb_small=100, numb_medium=100, numb_large=100):
 
     d = {'weight': x, 't_shirt_size': size}
     df = pd.DataFrame(data=d)
-    
+
     ts_colors = ['green','blue','orange','red','black']
-    
+
     df['t_shirt_color'] = np.random.choice(ts_colors, size=numb_small+numb_medium+numb_large)
     df['name'] = "Unknown"
     df.name = df.name.map(lambda x: names.get_full_name())
