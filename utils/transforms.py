@@ -6,10 +6,12 @@ def scale(df, features, scaler):
     scales numerical_features using the provided scaler 
 
     df: dataframe to operate on
-    features: a list of columns to apply to
+    features: a list of columns to apply to (or None if all)
     scaler: function that operates on df's features
     return: transformed df
     '''
+    # if features is None:
+    #     features=[col for col in df]
     df[features] = scaler.fit_transform(df[features])
     return df
 
