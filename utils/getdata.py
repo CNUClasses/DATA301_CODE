@@ -1,6 +1,8 @@
 # plt.style.use('ggplot')
 import pandas as pd
 import numpy as np
+import random
+from random import gauss
 # from sklearn.preprocessing import StandardScaler
 
 #to generate people names
@@ -44,3 +46,20 @@ def generate_tshirt_order(numb_small=100, numb_medium=100, numb_large=100):
     #generate an age (integer)
     df['Age'] = np.random.randint(8, 18, len(df))
     return df
+
+NUMB_SAMPLES = 100
+RAND_MAX_VAL =10
+RAND_MIN_VAL =0
+MAX_RISE = 20
+RANDOM_SEED=42
+
+def gendata(ns, ):
+    '''
+    generate dataset for linear regression
+    :return: x,y dataset
+    '''
+    x = [val for val in range(ns)]
+    y=[random.random()*(RAND_MAX_VAL-RAND_MIN_VAL)+RAND_MIN_VAL + val + MAX_RISE + RAND_MAX_VAL*gauss(0,1) for val in range(ns)]
+    x=np.array(x).reshape(-1,1)
+    y=np.array(y).reshape(-1,1)
+    return(x,y)
