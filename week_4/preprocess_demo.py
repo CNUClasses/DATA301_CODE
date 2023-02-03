@@ -19,22 +19,21 @@ if (PROJECT_ROOT not in sys.path):
     sys.path.append(PROJECT_ROOT)
 
 import utils as ut
-from sklearn.preprocessing import StandardScaler
+from utils.transforms import *
 
 # every python file has a name
-# if this file is running as a script (python preprocess_demo.py) then it's name is __main__
+# if this file is running as a script (python3 preprocess_demo.py) then it's name is __main__
 # if imported as a module then it's name is the name of the module, in this case preprocess_demo
-# the code inside the below if only runs when running as a script
+# the code below only runs when running as a script
 if __name__== "__main__":
     #load raw t-shirt order
-    df = ut.getdata.generate_tshirt_order()
+    df = ut.getdata.generate_tshirt_order(100,100,100,dups=100, percent_nans=0.2)
 
     # this is the hand coded bit for nominal cat var
-    vals = {'large': 2, 'medium': 1, 'small': 0}
+    vals ={'t_shirt_size': {'large': 2, 'medium': 1, 'small': 0}}
 
     #run a pipeline of transforms
-    df_clean = (df.pipe(ut.cat_nominal, ['t_shirt_size'], vals).
-            pipe(ut.cat_getdummies, ['t_shirt_color']).
-            pipe(ut.scale, ['weight', 't_shirt_size', 'Age'], StandardScaler()))
+    df=run_pipeline(df,dup_features=['name'], dummy_features=['t_shirt_color'], ordinal_features=['t_shirt_size'], ordering_dict=vals)
+
     
-    df_clean.to_feather('./preprocess.feather')
+    df.to_feather('./script.feather')
