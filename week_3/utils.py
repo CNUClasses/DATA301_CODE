@@ -39,3 +39,7 @@ def generate_tshirt_order(numb_small=100, numb_medium=100, numb_large=100):
     df['name'] = "Unknown"
     df.name = df.name.map(lambda x: names.get_full_name())
     return df
+
+if __name__ == "__main__":
+    pass
+    #runnable stuff here
